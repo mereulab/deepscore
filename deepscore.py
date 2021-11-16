@@ -1,6 +1,5 @@
 import os
 import scanpy as sc
-import episcanpy as epi
 import numpy as np
 import tensorflow as tf
 import pandas as pd
@@ -142,7 +141,7 @@ class DeepScore():
     
     def annotate(self, adata, pred_key='Deepscore'):
 
-        x = tf.data.Dataset.from_tensor_slices(adata.X)
+        tf.data.Dataset.from_tensor_slices(adata.X)
         test = self.model.predict(adata.X)
 
         indeces = np.argmax(test, axis=1)
