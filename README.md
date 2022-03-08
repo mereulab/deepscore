@@ -1,4 +1,3 @@
-![alt text](https://github.com/pabloswfly/DeepSCore/blob/main/logo.png?raw=true)
+![alt text](https://github.com/pabloswfly/DeepSCore/blob/master/logo.png?raw=true)
 
-# DeepSCore
-Source code for DeepSCore
+Source code for DeepSCore- Tentatively called cellnaut.
