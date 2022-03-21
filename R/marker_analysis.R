@@ -87,7 +87,7 @@ find_refmarkers_in_genes <- function(ref.markers, sample, sample.assay="RNA", ta
         ref_genes <- top_markers(ref.markers, ntop = n)
         ref_genes <- unname(unlist(ref_genes))
 
-        common <- intersect(ref_genes, rownames(endocrine))
+        common <- intersect(ref_genes, rownames(sample))
         print(glue('Found {length(common)} genes in common'))
         n <- n + 100
         
@@ -99,6 +99,112 @@ find_refmarkers_in_genes <- function(ref.markers, sample, sample.assay="RNA", ta
 
     return(common)
 }
+                  
+                  
+                  
+                  
+find_common_top_peaks <- function(ref, sample, ref.assay="peaks",
+                                  sample.assay="peaks", target_n_peaks=6000) {
+
+    DefaultAssay(ref) <- ref.assay
+    DefaultAssay(sample) <- sample.assay
+    
+    ref <- FindTopFeatures(ref)
+    sample <- FindTopFeatures(sample)
+
+    n <- target_n_peaks
+    common <- c()
+    while (length(common) < target_n_peaks) {
+        
+        print(glue('Looking for {n} top peaks'))
+        
+        ref_peaks <- ref@assays$peaks@meta.features %>% 
+                        arrange(desc(count)) %>% 
+                        top_n(n)
+        ref_peaks <- rownames(ref_peaks)
+        
+        sample_peaks <- sample@assays$peaks@meta.features %>% 
+                            arrange(desc(count)) %>% 
+                            top_n(n)
+        sample_peaks <- rownames(sample_peaks)
+        
+        common <- intersect(ref_peaks, sample_peaks)
+        print(glue('Found {length(common)} top peaks in common'))
+        n <- n + 1000
+    }
+
+    return(common)
+}
+     
+                  
+find_refmarkers_in_top_peaks <- function(ref.markers, sample, sample.assay="peaks", target_n_peaks=6000) {
+
+    DefaultAssay(sample) <- sample.assay
+    sample <- FindTopFeatures(sample)
+
+    n <- target_n_peaks
+
+    ref_peaks <- top_markers(ref.markers, ntop = length(ref.markers$gene))
+    ref_peaks <- unname(unlist(ref_peaks))
+
+    common <- c()
+    prev.n.variable <- 0
+    max.reached <- FALSE
+    
+    while ((length(common) < target_n_peaks) & (!max.reached)) {
+        
+        print(glue('Looking for {n} marker peaks from each label'))
+
+        sample_peaks <- sample@assays$peaks@meta.features %>% 
+                            arrange(desc(count)) %>% 
+                            top_n(n)
+        sample_peaks <- rownames(sample_peaks)
+
+        common <- intersect(ref_peaks, sample_peaks)
+        print(glue('Found {length(common)} peaks in common'))
+        n <- n + 3000
+
+        if (length(sample_peaks) == prev.n.variable) {
+            print('No more DAR found, returning last result')
+            max.reached <- TRUE
+        }
+        
+        prev.n.variable <- length(sample_peaks)
+    }
+
+    return(common)
+}
+
+                  
+                  
+find_refmarkers_in_peaks <- function(ref.markers, sample, sample.assay="peaks", target_n_peaks=6000) {
+
+    DefaultAssay(sample) <- sample.assay
+    n_cat <- length(levels(ref.markers$cluster))
+    n <- as.integer(round(target_n_peaks/n_cat))
+
+    common <- c()
+    max.reached <- FALSE
+    
+    while ((length(common) < target_n_peaks) & (!max.reached)) {
+        
+        print(glue('Looking for {n} marker peaks from each label'))
+        ref_genes <- top_markers(ref.markers, ntop = n)
+        ref_genes <- unname(unlist(ref_genes))
+
+        common <- intersect(ref_genes, rownames(sample))
+        print(glue('Found {length(common)} peaks in common'))
+        n <- n + 100
+        
+        if (length(ref.markers$gene) == length(ref_genes)) {
+            print('No more markers to go through, returning last result')
+            max.reached <- TRUE
+        }
+    }
+
+    return(common)
+}
+                  
                   
                   
 summary_ggplot <- function(data, ylab, xlab) {

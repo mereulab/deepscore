@@ -158,7 +158,7 @@ annotate <- function(ds, query, assay="RNA") {
 
     probs <- ds$model %>% predict(query.data)
     probs <- data.frame(probs, check.names = F)
-    names(probs) <- c("unclassified", ds$classes)
+    names(probs) <- c("unclassified", ds$split_data$classes)
     predicted <- apply(probs, 1, function(x) {
         ifelse(max(x) > 0.5, 
                names(probs)[which(x==max(x))],
@@ -166,7 +166,7 @@ annotate <- function(ds, query, assay="RNA") {
               )
     })
 
-    query$ds_annotation <- factor(predicted)
+    query$ds_prediction <- factor(predicted)
 
     return(query)
 }
