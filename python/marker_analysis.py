@@ -38,7 +38,7 @@ def top_markers(adata, ntop=100):
 
 
 
-def plot_jaccardindex(data, xlab='x', ylab='y'):
+def plot_jaccardindex(data, xlab='x', ylab='y', cmap='viridis'):
     """
     Plot the jaccard index matrix as a heatmap.
     """
@@ -49,19 +49,20 @@ def plot_jaccardindex(data, xlab='x', ylab='y'):
     # This will reverse the matrix so the diagonal looks good
     data = data[::-1]
 
-    plot = sns.heatmap(data, annot = True, vmin = 0.,
-                       vmax = 1., cmap = 'Reds')
+    plot = sns.heatmap(data, annot = True, vmin = 0., cbar = False,
+                       square = True, cmap = cmap, 
+                       annot_kws={"size": 8})
     plt.xticks(rotation = 70)
-    plt.xlabel(xlab, fontsize = 30)
-    plt.ylabel(ylab, fontsize = 30)
-    plt.title('Jaccard Index scores', fontsize = 40, pad = 20)
+    plt.xlabel(xlab, fontsize = 20)
+    plt.ylabel(ylab, fontsize = 20)
+    plt.title('Jaccard Index scores', fontsize = 30, pad = 20)
     plt.show()
 
     return(plot)
 
 
 
-def matchscore(ref_markers, obs_markers, plot=True,
+def matchscore(ref_markers, obs_markers, plot=True, cmap="viridis",
               xlab='My dataset', ylab='Reference dataset'):
     """
     Analysis of similarity between a set of markers found in
@@ -98,7 +99,7 @@ def matchscore(ref_markers, obs_markers, plot=True,
     max_ji = mat.max()
     anno_lab = mat.idxmax()
     if plot:
-        plot_jaccardindex(mat, xlab=xlab, ylab=ylab)
+        plot_jaccardindex(mat, xlab=xlab, ylab=ylab, cmap=cmap)
 
     return((score, anno_lab, max_ji, mat))
 
