@@ -35,7 +35,7 @@ from deepscore import DeepScore
 from marker_analysis import *
 ```
 
-In R, the following dependencies are needed:
+In Python, the following dependencies are needed:
 - scanpy / episcanpy
 - anndata
 - seaborn
