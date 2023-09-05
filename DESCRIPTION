@@ -1,0 +1,26 @@
+Package: deepSCore
+Type: Package
+Title: A multi-language multi-omics deep learning model for automatic single-cell label transfer
+Version: 0.1.0
+Authors@R: c(
+    person("Elisabetta", 
+           "Mereu", 
+           role=c("aut", "cre"), 
+           email="TODO@gmail.com", 
+           comment = c(ORCID = '0000-0001-6101-8472')),
+    person("Jessica Kanglin", 
+           "Li", 
+           role="ctb", 
+           email="jessica1061072827@gmail.com"))
+Description: The functioning of this package relies on utilizing a reference dataset that comprises clearly defined cellular types for individual cells, accompanied by computed feature markers. By employing a deep neural network (DNN) model, the package undergoes effective training to classify unknown cells present in new datasets from similar tissue samples. As a result, researchers gain valuable insights into cell type classification, even when dealing with datasets where cell types were previously unidentified.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.2.3
+Roxygen: list(markdown = TRUE)
+Depends:
+    R (>= 3.6.0)
+VignetteBuilder: knitr
+biocViews:
+    GeneExpression, Software, Transcription, Transcriptomics, Chromatin accessibility, Annotation,
+    SingleCell, Classification, GeneExpression, Clustering
