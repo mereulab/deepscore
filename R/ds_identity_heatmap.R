@@ -47,7 +47,11 @@ ds_identity_heatmap <- function(out,cluster) {
   ord_c<-colnames(confusion[,which(colnames(confusion) != "unclassified")])
   ord_c<-c(ord_c,"unclassified")
   confusion<-confusion[,ord_c]
-
+  if("unclassified" %in% unique(out)){
+    ord_c<-colnames(confusion[,which(colnames(confusion) != "unclassified")])
+    ord_c<-c(ord_c,"unclassified")
+    confusion<-confusion[,ord_c]
+  }
   confusion<-as.data.frame(confusion)
 
 
