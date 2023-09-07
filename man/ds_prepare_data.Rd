@@ -10,9 +10,7 @@ ds_prepare_data(
   query.data,
   query.assay,
   markers,
-  markers_data,
-  top_markers = F,
-  ntop = 100
+  markers_data
 )
 }
 \arguments{
@@ -27,10 +25,6 @@ ds_prepare_data(
 \item{markers}{Pre-defined marker genes. If missing, \code{markers_data} is required, otherwise, the next parameters must be empty.}
 
 \item{markers_data}{The output of the R function \code{FindAllMarkers} provided by \code{"Seurat"}. If not provided, the function will automatically calculate it.}
-
-\item{top_markers}{A parameter controlling the use of all features in \code{markers_data} or only the n top markers. If set to \code{TRUE}, an integer should be provided in the \code{ntop} parameter (default=FALSE).}
-
-\item{ntop}{A parameter determining the number of top markers to be selected (default=100).}
 }
 \value{
 The list containing all input data needed to train the dnn model.
