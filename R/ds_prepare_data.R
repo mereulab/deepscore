@@ -59,6 +59,9 @@ ds_prepare_data<-function(ref.data,ref.assay,query.data,query.assay,markers,mark
     query.data<-query.data@assays[[query.assay]]@data
   }
 
+  query_gg<-rownames(query.data)
+  sel_gg<-intersect(query_gg,sel_gg)
+
   query.data<-as.matrix(query.data)
 
   query.data<-query.data[sel_gg,]
