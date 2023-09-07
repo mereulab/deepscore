@@ -19,9 +19,7 @@
 #' @export
 #' @examples
 #' #not run
-#' no_markers_no_top_markers<-ds_prepare_data(ref.data,ref.assay,query.data,query.assay,markers_data,top_markers=F)
-#' no_markers_top_markers<-ds_prepare_data(ref.data,ref.assay,query.data,query.assay,markers_data,top_markers=T,ntop=100)
-#' markers<-ds_prepare_data(ref.data,ref.assay,query.data,query.assay,markers)
+#' ds_prepare_data(ref.data,ref.assay,query.data,query.assay,markers)
 #'
 
 ds_prepare_data<-function(ref.data,ref.assay,query.data,query.assay,markers,markers_data){
@@ -33,16 +31,14 @@ ds_prepare_data<-function(ref.data,ref.assay,query.data,query.assay,markers,mark
 
     if(missing(markers_data)){
       markers_data<-FindAllMarkers(ref.data,assay = ref.assay,only.pos = T)
+      markers<-markers_data$gene
+      markers<-unique(markers)
     }
 
     else{
       markers<-markers_data$gene
       markers<-unique(markers)
     }
-  }
-
-  else{
-    markers<-markers
   }
 
   ref.data <- ref.data@assays[[ref.assay]]@data
