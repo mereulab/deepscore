@@ -7,8 +7,6 @@
 #' @param query.assay The assay in the Seurat Object that contains the query data
 #' @param markers Pre-defined marker genes. If missing, `markers_data` is required, otherwise, the next parameters must be empty.
 #' @param markers_data The output of the R function `FindAllMarkers` provided by `"Seurat"`. If not provided, the function will automatically calculate it.
-#' @param top_markers A parameter controlling the use of all features in `markers_data` or only the n top markers. If set to `TRUE`, an integer should be provided in the `ntop` parameter (default=FALSE).
-#' @param ntop A parameter determining the number of top markers to be selected (default=100).
 #'
 #' @import matchSCore2
 #' @import Seurat
@@ -26,7 +24,7 @@
 #' markers<-ds_prepare_data(ref.data,ref.assay,query.data,query.assay,markers)
 #'
 
-ds_prepare_data<-function(ref.data,ref.assay,query.data,query.assay,markers,markers_data,top_markers=F,ntop=100){
+ds_prepare_data<-function(ref.data,ref.assay,query.data,query.assay,markers,markers_data){
   DefaultAssay(ref.data)<-ref.assay
 
   ref.cluster<-ref.data@active.ident
@@ -37,11 +35,6 @@ ds_prepare_data<-function(ref.data,ref.assay,query.data,query.assay,markers,mark
       markers_data<-FindAllMarkers(ref.data,assay = ref.assay,only.pos = T)
     }
 
-    if(top_markers){
-      markers <- ms_top_markers(levels(markers_data$cluster),markers = markers_data,ntop = 100)
-      markers<- unlist(markers)
-      markers<-unique(markers)
-    }
     else{
       markers<-markers_data$gene
       markers<-unique(markers)
