@@ -8,6 +8,7 @@
 #' @param prop The proportion of cells for the training dataset (default=0.5).
 #' @param verbose Logical, controls the displaying of additional messages while
 #' running the function. Defaults to `TRUE`.
+#' @param sct_nrom Set according to the normalizing method of the data. (default=TRUE)
 #' @return A list with the following data: train_x= training_data,train_y= categorical cell type variables,
 #' test_x =test_data,test_y=categorical celltype from the test data, classes=original cell types).
 #' @export
@@ -18,7 +19,7 @@
 
 
 ds_split_data_dnn_1 <- function (scale.data, clus, genes, prop = NULL,
-                                verbose = TRUE)
+                                verbose = TRUE, sct_norm=TRUE)
 {
   classes <- levels(clus)
   levels(clus) <- seq(1:length(levels(clus)))
@@ -54,13 +55,19 @@ ds_split_data_dnn_1 <- function (scale.data, clus, genes, prop = NULL,
   setTxtProgressBar(pb, progress)
   out.train <- clus[train.sample]
   out.test <- clus[test.sample]
-
-  var.train <- apply(train.data, 1, function(x) (x - min(x))/(max(x) - min(x)))
+  
+  if(sct_norm){
+    var.train <- apply(train.data, 1, function(x) (x - min(x))/(max(x) - min(x)))
+    var.test <- apply(test.data, 1, function(x) (x - min(x))/(max(x) - min(x)))
+  }
+  else{
+    var.train <- reference[, train.sample] %>% Matrix::t()
+    var.test <- reference[, test.sample] %>% Matrix::t()
+  }
   progress <- 5
   Sys.sleep(0.1)
   setTxtProgressBar(pb, progress)
 
-  var.test <- apply(test.data, 1, function(x) (x - min(x))/(max(x) - min(x)))
   progress <- 6
   Sys.sleep(0.1)
   setTxtProgressBar(pb, progress)
