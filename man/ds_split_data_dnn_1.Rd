@@ -4,7 +4,14 @@
 \alias{ds_split_data_dnn_1}
 \title{This function split the reference data in training and test set to use it as input for the ds_dnn_model function.}
 \usage{
-ds_split_data_dnn_1(scale.data, clus, genes, prop = NULL, verbose = TRUE)
+ds_split_data_dnn_1(
+  scale.data,
+  clus,
+  genes,
+  prop = NULL,
+  verbose = TRUE,
+  sct_norm = TRUE
+)
 }
 \arguments{
 \item{scale.data}{scale.data A scaled/normalized matrix of gene expressions like in the \code{scale.data}
@@ -19,6 +26,8 @@ dataset.}
 
 \item{verbose}{Logical, controls the displaying of additional messages while
 running the function. Defaults to \code{TRUE}.}
+
+\item{sct_nrom}{Set according to the normalizing method of the data. (default=TRUE)}
 }
 \value{
 A list with the following data: train_x= training_data,train_y= categorical cell type variables,
