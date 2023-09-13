@@ -19,7 +19,7 @@
 
 
 ds_split_data_dnn_1 <- function (scale.data, clus, genes, prop = NULL,
-                                verbose = TRUE, sct_norm=TRUE)
+                                 verbose = TRUE, sct_norm=TRUE)
 {
   classes <- levels(clus)
   levels(clus) <- seq(1:length(levels(clus)))
@@ -55,14 +55,14 @@ ds_split_data_dnn_1 <- function (scale.data, clus, genes, prop = NULL,
   setTxtProgressBar(pb, progress)
   out.train <- clus[train.sample]
   out.test <- clus[test.sample]
-  
+
   if(sct_norm){
     var.train <- apply(train.data, 1, function(x) (x - min(x))/(max(x) - min(x)))
     var.test <- apply(test.data, 1, function(x) (x - min(x))/(max(x) - min(x)))
   }
   else{
-    var.train <- reference[, train.sample] %>% Matrix::t()
-    var.test <- reference[, test.sample] %>% Matrix::t()
+    var.train <- t(scale.data[, train.sample])
+    var.test <- t(scale.data[, test.sample])
   }
   progress <- 5
   Sys.sleep(0.1)
