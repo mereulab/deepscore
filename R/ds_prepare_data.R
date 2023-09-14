@@ -24,8 +24,10 @@
 
 ds_prepare_data<-function(ref.data,ref.assay,query.data,query.assay,markers,markers_data){
   DefaultAssay(ref.data)<-ref.assay
+  DefaultAssay(query.data)<-query.assay
 
   ref.cluster<-ref.data@active.ident
+  query.cluster<-query.data@active.ident
 
   if(missing(markers)){
 
@@ -41,30 +43,20 @@ ds_prepare_data<-function(ref.data,ref.assay,query.data,query.assay,markers,mark
     }
   }
 
-  ref.data <- ref.data@assays[[ref.assay]]@data
-  genes <- intersect(rownames(ref.data),markers)
-
   gg <- rownames(ref.data)
 
   sel_gg <- intersect(markers,gg)
 
-  ref.data<-as.matrix(ref.data)
-
-  if(missing(query.data)){
-    query.data<-ref.data@assays[[query.assay]]@data
-    query.cluster<-ref.cluster
-  }
-  else{
-    query.cluster<-Idents(query.data)
-    query.data<-query.data@assays[[query.assay]]@data
-  }
-
   query_gg<-rownames(query.data)
   sel_gg<-intersect(query_gg,sel_gg)
 
-  query.data<-as.matrix(query.data)
+  ref.data <- GetAssayData(ref.data, slot = "data", assay = ref.assay)
+  ref.data <- ref.data[sel_gg,]
+  ref.data<-as.matrix(ref.data)
 
+  query.data <- GetAssayData(query.data, slot = "data", assay = query.assay)
   query.data<-query.data[sel_gg,]
+  query.data<-as.matrix(query.data)
 
   out<-list(ref.data=ref.data,query.data=query.data,ref.cluster=ref.cluster,query.cluster=query.cluster,markers=sel_gg)
 
