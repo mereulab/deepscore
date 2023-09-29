@@ -7,7 +7,7 @@
 #' @param y.data The Seurat Object that contains the second data
 #' @param y.assay The assay in the Seurat Object that contains the second data
 #' @param downsample If a downsample is applied or not to the data. If `TRUE`,`n_downsample' is needed.(Default=TRUE)
-#' @param n_downsample The number of cells to downsample in each class
+#' @param n_downsample The number of cells to downsample in each class.
 #' @param markers The markers to take into account in the correlation matrix
 #'
 #' @import corrplot
