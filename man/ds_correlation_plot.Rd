@@ -15,7 +15,9 @@ ds_correlation_plot(x.data, x.assay, y.data, y.assay, downsample, features)
 
 \item{y.assay}{The assay in the Seurat Object that contains the second data}
 
-\item{downsample}{The number of cells to downsample in each class}
+\item(downsample){If a downsample is applied or not to the data. If `TRUE`,`n_downsample' is needed.(Default=TRUE)}
+
+\item{n_downsample}{The number of cells to downsample in each class}
 
 \item{markers}{The markers to take into account in the correlation matrix}
 }
