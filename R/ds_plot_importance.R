@@ -19,7 +19,7 @@
 #' ds_plot_importance(data,n=50,Decrease=TRUE,general_alteration=FALSE,main="Feature Importance Plot")
 #'
 
-ds_plot_importance<-function(data,n=30,Decrease=TRUE,general_alteration=FALSE,main=""){
+ds_plot_importance<-function(data,n=30,Decrease=TRUE,general_alteration=TRUE,main=""){
   rownames(data)<-NULL
   data<-data[order(data$Score, decreasing=Decrease),]
   if(general_alteration){
