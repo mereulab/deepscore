@@ -6,7 +6,7 @@
 #' @param n The number of features to be plotted (Default=30)
 #' @param Decrease If the importance are plotted decreasing or increasing.
 #' @param general_alteration If plot the absolut scores, if `TRUE`, the plot would not take into account if the
-#' alteration means an increase or decrease. (Default=FALSE)
+#' alteration means an increase or decrease. (Default=TRUE)
 #' @param main The title of the plot
 #'
 #' @import ggplot2
