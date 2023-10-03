@@ -8,7 +8,7 @@ ds_plot_importance(
   data,
   n = 30,
   Decrease = TRUE,
-  general_alteration = FALSE,
+  general_alteration = TRUE,
   main = ""
 )
 }
