@@ -20,7 +20,7 @@ ds_plot_importance(
 \item{Decrease}{If the importance are plotted decreasing or increasing.}
 
 \item{general_alteration}{If plot the absolut scores, if \code{TRUE}, the plot would not take into account if the
-alteration means an increase or decrease. (Default=FALSE)}
+alteration means an increase or decrease. (Default=TRUE)}
 
 \item{main}{The title of the plot}
 }
