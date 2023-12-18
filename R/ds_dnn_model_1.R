@@ -130,6 +130,8 @@ ds_dnn_model_1 <- function(out,hnodes, epochs=10,
     print(test_performance)
   }
 
+
+
   return(model)
 
 }

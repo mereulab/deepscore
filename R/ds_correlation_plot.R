@@ -6,23 +6,21 @@
 #' @param x.assay The assay in the Seurat Object that contains the first data
 #' @param y.data The Seurat Object that contains the second data
 #' @param y.assay The assay in the Seurat Object that contains the second data
-#' @param downsample If a downsample is applied or not to the data. If `TRUE`,`n_downsample' is needed.(Default=TRUE)
-#' @param n_downsample The number of cells to downsample in each class.
+#' @param downsample The number of cells to downsample in each class
 #' @param markers The markers to take into account in the correlation matrix
 #'
 #' @import corrplot
 #' @import viridisLite
 #' @import Seurat
 
-ds_correlation_plot<-function(x.data,x.assay,y.data,y.assay,downsample,n_downsample,features){
-  if(downsample){
-    x.data <- subset(x.data,downsample=n_downsample)
-    y.data <- subset(y.data,downsample=n_downsample)
-  }
-  DefaultAssay(x.data)<-x.assay
-  ref_x<-x.data
-  DefaultAssay(y.data)<-y.assay
-  ref_y<-y.data
+ds_correlation_plot<-function(x.data,x.assay,y.data,y.assay,downsample,features){
+  x.small <- subset(x.data,downsample=downsample)
+  y.small <- subset(y.data,downsample=downsample)
+
+  DefaultAssay(x.small)<-x.assay
+  ref_x<-x.small
+  DefaultAssay(y.small)<-y.assay
+  ref_y<-y.small
 
   ref_x<-subset(ref_x,features = features)
   ref_y<-subset(ref_y,features=features)

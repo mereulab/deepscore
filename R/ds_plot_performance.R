@@ -8,6 +8,7 @@
 #' @param colors Vectors of colors for the plot
 #' @param plwd Line width of the plot
 #'
+#' @import fmsb
 #' @return A radarchart plot
 #' @export
 #' @examples
