@@ -34,6 +34,8 @@ This function generates a list with the needed inputs to generate the dnn model.
 }
 \examples{
 #not run
-ds_prepare_data(ref.data,ref.assay,query.data,query.assay,markers)
+no_markers_no_top_markers<-ds_prepare_data(ref.data,ref.assay,query.data,query.assay,markers_data,top_markers=F)
+no_markers_top_markers<-ds_prepare_data(ref.data,ref.assay,query.data,query.assay,markers_data,top_markers=T,ntop=100)
+markers<-ds_prepare_data(ref.data,ref.assay,query.data,query.assay,markers)
 
 }
