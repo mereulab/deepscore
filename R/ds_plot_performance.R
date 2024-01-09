@@ -27,8 +27,8 @@ ds_plot_performance<-function(data,parameters,legend=TRUE,colors,plwd=1){
               #custom labels
               vlcex=1)
   if(legend){
-    legend(x=2, y=1, legend = rownames(package_ct[[1]]),
-           bty = "n", pch=20 , col=colors_border1 , text.col = "grey1",
+    legend(x=2, y=1, legend = rownames(data),
+           bty = "n", pch=20 , col=colors , text.col = "grey1",
            cex=1.2, pt.cex=3)
   }
 }
