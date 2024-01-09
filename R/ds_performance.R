@@ -39,18 +39,12 @@ ds_performance<-function(out,cluster){
         if(isEmpty(Un)==FALSE){
           Error_rate<-append(Error_rate,sum(confusion[,which(colnames(confusion)!=Un)][i,-j])/count_cluster$Freq[i])
         }
-        if(isEmpty(Un)){
-          Error_rate<-append(Error_rate,sum(confusion[i,-j])/count_cluster$Freq[i])
-        }
         else{
           Error_rate<-append(Error_rate,sum(confusion[i,-j])/count_cluster$Freq[i])
         }
       }
     }
-    if(nrow(confusion)==ncol(confusion)){
-      Classification_rate<-rep(1,nrow(confusion))
-    }
-    if(isEmpty(Un)){
+    if(nrow(confusion)==ncol(confusion) || isEmpty(Un)){
       Classification_rate<-rep(1,nrow(confusion))
     }
     else{
