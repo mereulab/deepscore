@@ -3,6 +3,7 @@
 #' @param dnn_model The DNN model output of the ds_dnn_model function.
 #' @param model_data The output of the ds_split_data_dnn function.
 #' @param query.data The scaled/normalized gene expression data you want to annotate.
+#' @param threshold The minimum probability to classify cell (Default=0.5).
 #'
 #'
 #' @return List containing the classification output and the probability matrix of the model.
@@ -15,7 +16,7 @@
 #' model <- ds_dnn_model(out = out,hnodes = c(1000),verbose = T,epochs = 10,batch_size = 32)
 #  ids <- ds_dnn_classify(dnn_model = model,model.data = out,query.data = query.data) #### query.data is a normalized/scaled.data
 
-ds_dnn_classify <- function(dnn_model,model.data,query.data){
+ds_dnn_classify <- function(dnn_model,model.data,query.data,threshold=0.5){
 
   library(keras)
   train_x <- model.data$train_x
@@ -37,7 +38,7 @@ ds_dnn_classify <- function(dnn_model,model.data,query.data){
   probs <- dnn_model %>% predict(test_x)
   probs <- data.frame(probs,check.names = F)
   names(probs) <- c("unclassified",model.data$classes)
-  predicted <- apply(probs,1,function(x) ifelse(max(x)>0.5,names(probs)[which(x==max(x))],"unclassified"))
+  predicted <- apply(probs,1,function(x) ifelse(max(x)>threshold,names(probs)[which(x==max(x))],"unclassified"))
 
   ids <- factor(predicted)
 
