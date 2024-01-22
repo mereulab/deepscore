@@ -4,12 +4,14 @@
 \alias{ds_dnn_classify}
 \title{This function gives the prediction of the deep neural network (DNN) model.}
 \usage{
-ds_dnn_classify(dnn_model, model.data, query.data)
+ds_dnn_classify(dnn_model, model.data, query.data, threshold = 0.5)
 }
 \arguments{
 \item{dnn_model}{The DNN model output of the ds_dnn_model function.}
 
 \item{query.data}{The scaled/normalized gene expression data you want to annotate.}
+
+\item{threshold}{The minimum probability to classify cell (Default=0.5).}
 
 \item{model_data}{The output of the ds_split_data_dnn function.}
 }
