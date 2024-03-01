@@ -34,9 +34,9 @@ ds_dnn_model_1(
 
 \item{epochs}{Keras parameter for the layer_dense function (Default= 30).}
 
-\item{set.seed}{Set a seed (Default=`TRUE`)}
+\item{set.seed}{Set a seed (Default=TRUE).}
 
-\item{seed}{Set a seed and a generator}
+\item{seed}{Set a seed and a generator.}
 
 \item{batch_size}{Keras parameter for the layer_dense function (Default= 32).}
 
@@ -58,7 +58,7 @@ moving toward a minimum of a loss function (Default=0.001)}
 \item{l2}{Keras parameter for the layer weight regularizers (Default=0)}
 
 \item{verbose}{Logical, controls the displaying of additional messages while
-running the function. Defaults to \code{TRUE}.}
+running the function. Defaults to TRUE.}
 
 \item{earlystopping}{Keras parameter to stop training when a monitored metric has stopped improving (Default=TRUE)}
 
