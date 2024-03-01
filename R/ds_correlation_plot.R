@@ -38,7 +38,7 @@ ds_correlation_plot<-function(x.data,x.assay,y.data,y.assay,downsample,features)
     assays = y.assay)
   ref_y_data<-scale(ref_y_data[[1]])
 
-  plot<-cor(ref_y_data,ref_x_data)
+  plot<-cormat<-cor(ref_y_data,ref_x_data)
 
   return(corrplot(plot, type="upper",tl.col="black",col=mako(100)))
 }

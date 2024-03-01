@@ -4,8 +4,8 @@
 #' @param out The output of the ds_split_data_encoder function. The input data used to train the DNN model.
 #' @param hnodes The number of the nodes of the intermediate layers of the encoder. The first and last layers are not included.
 #' @param epochs Keras parameter for the layer_dense function (Default= 30).
-#' @param set.seed Set a seed (Default=`TRUE`)
-#' @param seed Set a seed and a generator
+#' @param set.seed Set a seed (Default=TRUE).
+#' @param seed Set a seed and a generator.
 #' @param batch_size Keras parameter for the layer_dense function (Default= 32).
 #' @param activation Keras parameter for the layer_dense function (Default= "relu").
 #' @param add_dropout Keras parameter for the layer_dense function (Default= TRUE).
@@ -17,7 +17,7 @@
 #' @param l1 Keras parameter for the layer weight regularizers (Default=0)
 #' @param l2 Keras parameter for the layer weight regularizers (Default=0)
 #' @param verbose Logical, controls the displaying of additional messages while
-#' running the function. Defaults to `TRUE`.
+#' running the function. Defaults to TRUE.
 #' @param earlystopping Keras parameter to stop training when a monitored metric has stopped improving (Default=TRUE)
 #' @param lr_scheduler Keras parameter to modulate how the learning rate of your optimizer changes over time (Default=FALSE)
 #' @param schedule Keras parameter to modulate how the learning rate of your optimizer changes over time (Default=NULL)
@@ -43,9 +43,11 @@ ds_dnn_model_1 <- function(out,hnodes, epochs=10,set.seed=TRUE,seed,
                          schedule=NULL, patience=2, ...){
 
   library(keras)
+
   if(set.seed){
     tensorflow::set_random_seed(seed)
   }
+
   train_x <- out$train_x
   train_y <- out$train_y
 

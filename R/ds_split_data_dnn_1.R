@@ -25,7 +25,7 @@ ds_split_data_dnn_1 <- function (scale.data, clus, genes, prop = NULL,
   levels(clus) <- seq(1:length(levels(clus)))
   features <- unique(genes)
   if (verbose)
-    message("Splitting the reference into train and test datasets...")
+    message("Splitting the refence into train and test datasets...")
   total <- 6
   pb <- txtProgressBar(min = 0, max = total, style = 3)
   Sys.sleep(0.1)
