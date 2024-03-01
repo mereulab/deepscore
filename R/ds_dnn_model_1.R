@@ -4,6 +4,8 @@
 #' @param out The output of the ds_split_data_encoder function. The input data used to train the DNN model.
 #' @param hnodes The number of the nodes of the intermediate layers of the encoder. The first and last layers are not included.
 #' @param epochs Keras parameter for the layer_dense function (Default= 30).
+#' @param set.seed Set a seed (Default=`TRUE`)
+#' @param seed Set a seed and a generator
 #' @param batch_size Keras parameter for the layer_dense function (Default= 32).
 #' @param activation Keras parameter for the layer_dense function (Default= "relu").
 #' @param add_dropout Keras parameter for the layer_dense function (Default= TRUE).
@@ -24,6 +26,7 @@
 #' @import keras
 #' @import glue
 #' @import dplyr
+#' @import tensorflow
 #' @return The DNN model.
 #' @export
 #' @examples
@@ -33,14 +36,14 @@
 #' out <- ds_split_data_encoder(features = features,clus = cluster,prop = 0.8,verbose = T)
 #' model <- ds_dnn_model(out = out,hnodes = c(1000),verbose = T,epochs = 10,batch_size = 32)
 
-ds_dnn_model_1 <- function(out,hnodes, epochs=10,
+ds_dnn_model_1 <- function(out,hnodes, epochs=10,seed,
                          batch_size=32, activation="relu", add_dropout=TRUE,
                          pct_dropout=0.2,name_mod="mod", lr=0.001,
                          weight_reg=TRUE, l1=0, l2=0,verbose = TRUE, earlystopping=TRUE, lr_scheduler=FALSE,
                          schedule=NULL, patience=2, ...){
 
   library(keras)
-
+  tensorflow::set_random_seed()
   train_x <- out$train_x
   train_y <- out$train_y
 
