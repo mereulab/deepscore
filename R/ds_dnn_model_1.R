@@ -43,7 +43,9 @@ ds_dnn_model_1 <- function(out,hnodes, epochs=10,set.seed=TRUE,seed,
                          schedule=NULL, patience=2, ...){
 
   library(keras)
-  tensorflow::set_random_seed(seed)
+  if(set.seed){
+    tensorflow::set_random_seed(seed)
+  }
   train_x <- out$train_x
   train_y <- out$train_y
 
