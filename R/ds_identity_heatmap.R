@@ -38,7 +38,7 @@ ds_identity_heatmap <- function(out,cluster) {
   }
 
   m<-t(confusion)
-  #m<-matrix.sort(m)
+  m<-matrix.sort(m)
   confusion<-t(m)
 
   ord_r<-rev(rownames(confusion))
