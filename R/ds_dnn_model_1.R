@@ -36,14 +36,14 @@
 #' out <- ds_split_data_encoder(features = features,clus = cluster,prop = 0.8,verbose = T)
 #' model <- ds_dnn_model(out = out,hnodes = c(1000),verbose = T,epochs = 10,batch_size = 32)
 
-ds_dnn_model_1 <- function(out,hnodes, epochs=10,seed,
+ds_dnn_model_1 <- function(out,hnodes, epochs=10,set.seed=TRUE,seed,
                          batch_size=32, activation="relu", add_dropout=TRUE,
                          pct_dropout=0.2,name_mod="mod", lr=0.001,
                          weight_reg=TRUE, l1=0, l2=0,verbose = TRUE, earlystopping=TRUE, lr_scheduler=FALSE,
                          schedule=NULL, patience=2, ...){
 
   library(keras)
-  tensorflow::set_random_seed()
+  tensorflow::set_random_seed(seed)
   train_x <- out$train_x
   train_y <- out$train_y
 
