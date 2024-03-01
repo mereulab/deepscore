@@ -8,6 +8,8 @@ ds_dnn_model_1(
   out,
   hnodes,
   epochs = 10,
+  set.seed = TRUE,
+  seed,
   batch_size = 32,
   activation = "relu",
   add_dropout = TRUE,
@@ -31,6 +33,10 @@ ds_dnn_model_1(
 \item{hnodes}{The number of the nodes of the intermediate layers of the encoder. The first and last layers are not included.}
 
 \item{epochs}{Keras parameter for the layer_dense function (Default= 30).}
+
+\item{set.seed}{Set a seed (Default=`TRUE`)}
+
+\item{seed}{Set a seed and a generator}
 
 \item{batch_size}{Keras parameter for the layer_dense function (Default= 32).}
 
