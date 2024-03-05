@@ -6,7 +6,7 @@
 #' @param cluster A cell type annotation
 #'
 #' @return A list containing a performance dataframe and the confusion table
-#'
+#' @import pracma
 #' @export
 #' @examples
 #' #not run
@@ -36,7 +36,7 @@ ds_performance<-function(out,cluster){
         sp<-sum(count_cluster$Freq[-i])/(sum(count_cluster$Freq[-i])+sum(confusion[-i,j]))
         Specificity<-append(Specificity,sp)
         Accuracy<-append(Accuracy,(se+sp)/2)
-        if(isEmpty(Un)==FALSE){
+        if(isempty(Un)==FALSE){
           Error_rate<-append(Error_rate,sum(confusion[,which(colnames(confusion)!=Un)][i,-j])/count_cluster$Freq[i])
         }
         else{
@@ -44,7 +44,7 @@ ds_performance<-function(out,cluster){
         }
       }
     }
-    if(nrow(confusion)==ncol(confusion) || isEmpty(Un)){
+    if(nrow(confusion)==ncol(confusion) || isempty(Un)){
       Classification_rate<-rep(1,nrow(confusion))
     }
     else{
