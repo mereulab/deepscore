@@ -10,6 +10,8 @@ ds_identity_heatmap(out, cluster)
 \item{out}{The predicted cell types}
 
 \item{cluster}{A cell type annotation}
+
+\item{size}{Heatmap axis size}
 }
 \value{
 A heatmap comparing out and cluster
@@ -19,5 +21,5 @@ This function generates a heatmap which compares the predicted cell types with a
 }
 \examples{
 #not run
-heatmap<-ds_identity_heatmap(out,cluster)
+heatmap<-ds_identity_heatmap(out,cluster,size)
 }
