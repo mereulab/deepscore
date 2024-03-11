@@ -14,7 +14,7 @@
 #' #not run
 #' heatmap<-ds_identity_heatmap(out,cluster)
 
-ds_identity_heatmap <- function(out,cluster) {
+ds_identity_heatmap <- function(out,cluster,size=5) {
   confusion<-table(cluster,out)
   confusion<-as.matrix(confusion)
 
@@ -66,8 +66,8 @@ ds_identity_heatmap <- function(out,cluster) {
   gg<- confusion %>%
     ggplot(aes(x=Predicted,y=Cluster,fill=Proportion)) +
     geom_tile()+
-    scale_fill_distiller(palette = "RdPu") + theme_ipsum(axis_title_size = 14,base_family = "Arial Narrow")  +
-    theme(axis.text.x = element_text(angle = 90,size = 14,hjust=0,vjust=0.2),
+    scale_fill_distiller(palette = "RdPu") + theme_ipsum(axis_title_size = size,base_family = "Arial Narrow")  +
+    theme(axis.text.x = element_text(angle = 90,size = size,hjust=0,vjust=0.2),
           axis.text.y = element_text(size=14)) +
     geom_text(aes(label=round(Shared,2)),size=3)+
     labs(title = paste0(""))+scale_x_discrete(position = "top")
