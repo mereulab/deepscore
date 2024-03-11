@@ -57,6 +57,6 @@ ds_performance<-function(out,cluster){
   ct_dt$`Classification Rate`<-Classification_rate
   ct_dt$`Error Rate`<-Error_rate
   ct_dt<-round(ct_dt,3)
-  out<-list("Confusion table"=confusion, "Performance"=ct_dt)
+  out<-list("Confusion_table"=confusion, "Performance"=ct_dt)
   return(out)
 }
