@@ -4,6 +4,7 @@
 #'
 #' @param out The predicted cell types
 #' @param cluster A cell type annotation
+#' @param size Heatmap axis size
 #'
 #' @import ggplot2
 #' @import hrbrthemes
