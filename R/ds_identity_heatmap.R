@@ -14,7 +14,7 @@
 #' #not run
 #' heatmap<-ds_identity_heatmap(out,cluster)
 
-ds_identity_heatmap <- function(out,cluster,size=5) {
+ds_identity_heatmap <- function(out,cluster,size=14) {
   confusion<-table(cluster,out)
   confusion<-as.matrix(confusion)
 
