@@ -17,15 +17,14 @@
 #  out <- ds_split_data(scale.data = scaled,clus = cluster,genes = sel_gg,prop = 0.6)
 #  model <- ds_dnn_model(out = out,hnodes = c(100),verbose = T,epochs = 30,batch_size = 32)
 
-
 ds_split_data_dnn_1 <- function (scale.data, clus, genes, prop = NULL,
-                                 verbose = TRUE, sct_norm=TRUE)
+                                 verbose = TRUE, sct_norm=FALSE)
 {
   classes <- levels(clus)
   levels(clus) <- seq(1:length(levels(clus)))
   features <- unique(genes)
   if (verbose)
-    message("Splitting the refence into train and test datasets...")
+    message("Splitting the reference into train and test datasets...")
   total <- 6
   pb <- txtProgressBar(min = 0, max = total, style = 3)
   Sys.sleep(0.1)
@@ -68,12 +67,12 @@ ds_split_data_dnn_1 <- function (scale.data, clus, genes, prop = NULL,
   Sys.sleep(0.1)
   setTxtProgressBar(pb, progress)
 
-  progress <- 6
-  Sys.sleep(0.1)
-  setTxtProgressBar(pb, progress)
   model.train <- data.frame(out.train, var.train,check.names = F)
   n <- nrow(model.train)
   model.train <- model.train[sample(x=seq(1:n),size = n),]
+  progress <- 6
+  Sys.sleep(0.1)
+  setTxtProgressBar(pb, progress)
 
   # model.test <- data.frame(out.test, var.test,check.names = F)
   # n <- nrow(model.test)
