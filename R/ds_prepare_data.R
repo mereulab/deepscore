@@ -7,6 +7,8 @@
 #' @param query.assay The assay in the Seurat Object that contains the query data
 #' @param markers Pre-defined marker genes. If missing, `markers_data` is required, otherwise, the next parameters must be empty.
 #' @param markers_data The output of the R function `FindAllMarkers` provided by `"Seurat"`. If not provided, the function will automatically calculate it.
+#' @param ref.slot The data to get from ref.assay
+#' @param query.slot The data to get from query.assay
 #'
 #' @import matchSCore2
 #' @import Seurat
@@ -24,7 +26,7 @@
 #' markers<-ds_prepare_data(ref.data,ref.assay,query.data,query.assay,markers)
 #'
 
-ds_prepare_data<-function(ref.data,ref.assay,query.data,query.assay,markers,markers_data){
+ds_prepare_data<-function(ref.data,ref.assay,query.data,query.assay,markers,markers_data,ref.slot,query.slot){
   DefaultAssay(ref.data)<-ref.assay
   DefaultAssay(query.data)<-query.assay
 
@@ -53,11 +55,11 @@ ds_prepare_data<-function(ref.data,ref.assay,query.data,query.assay,markers,mark
   sel_gg<-intersect(query_gg,sel_gg)
 
   ref.data <- ref.data[sel_gg,]
-  ref.data <- GetAssayData(ref.data, slot = "data", assay = ref.assay)
+  ref.data <- GetAssayData(ref.data, slot = ref.slot, assay = ref.assay)
   ref.data<-as.matrix(ref.data)
 
   query.data<-query.data[sel_gg,]
-  query.data <- GetAssayData(query.data, slot = "data", assay = query.assay)
+  query.data <- GetAssayData(query.data, slot = query.slot, assay = query.assay)
   query.data<-as.matrix(query.data)
 
   out<-list(ref.data=ref.data,query.data=query.data,ref.cluster=ref.cluster,query.cluster=query.cluster,markers=sel_gg)

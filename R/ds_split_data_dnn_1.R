@@ -8,9 +8,11 @@
 #' @param prop The proportion of cells for the training dataset (default=0.5).
 #' @param verbose Logical, controls the displaying of additional messages while
 #' running the function. Defaults to `TRUE`.
+#' @param scaled_data Set according to the normalizing method of the data. (default=TRUE)
+#' @param train.samples Set train samples
 #' @param sct_nrom Set according to the normalizing method of the data. (default=TRUE)
 #' @return A list with the following data: train_x= training_data,train_y= categorical cell type variables,
-#' test_x =test_data,test_y=categorical celltype from the test data, classes=original cell types).
+#' test_x =test_data,test_y=categorical celltype from the test data, classes=original cell types, train_samples=Set of train samples).
 #' @export
 #' @examples
 #' #not run
@@ -18,7 +20,7 @@
 #  model <- ds_dnn_model(out = out,hnodes = c(100),verbose = T,epochs = 30,batch_size = 32)
 
 ds_split_data_dnn_1 <- function (scale.data, clus, genes, prop = NULL,
-                                 verbose = TRUE, sct_norm=FALSE)
+                                 verbose = TRUE, scaled_data=FALSE,sct_norm=TRUE,train.samples=NULL)
 {
   classes <- levels(clus)
   levels(clus) <- seq(1:length(levels(clus)))
@@ -40,9 +42,15 @@ ds_split_data_dnn_1 <- function (scale.data, clus, genes, prop = NULL,
   if (is.null(prop)) {
     prop <- 0.5
   }
-  train.sample <- unlist(sapply(levels(clus), function(x) sample(x = which(clus %in%
-                                                                             x), size = sizes[names(sizes) == x] * prop)))
-  s <- colnames(scale.data)[train.sample]
+  if(is.null(train.samples)){
+    train.sample <- unlist(sapply(levels(clus), function(x) sample(x = which(clus %in%
+                                                                                x), size = sizes[names(sizes) == x] * prop)))
+    s <- colnames(scale.data)[train.sample]
+  }
+  else{
+    s <- train.samples
+  }
+  train.sample <- which(colnames(scale.data) %in% s)
   test.sample <- which(!colnames(scale.data) %in% s)
   train.data <- scale.data[rownames(scale.data) %in% features, train.sample]
   progress <- 3
@@ -83,5 +91,5 @@ ds_split_data_dnn_1 <- function (scale.data, clus, genes, prop = NULL,
   test_x <- var.test
   test_y <- to_categorical(out.test)
 
-  return(list(train_x=train_x,train_y=train_y,test_x =test_x,test_y=test_y,classes=classes))
+  return(list(train_x=train_x,train_y=train_y,test_x =test_x,test_y=test_y,classes=classes,train_samples=s))
 }

@@ -38,17 +38,17 @@ ds_select_dnn_model<-function(n_mod,metric="accuracy",out,hnodes, epochs=10,
                           batch_size=32, activation="relu", add_dropout=TRUE,
                           pct_dropout=0.2,name_mod="mod", lr=0.001,
                           weight_reg=TRUE, l1=0, l2=0,verbose = TRUE, earlystopping=TRUE, lr_scheduler=FALSE,
-                          schedule=NULL, patience=2, ...){
+                          schedule=NULL, patience=2,set.seed=FALSE,seed=42, ...){
   n_models<-list()
   loss_v<-c()
   accuracy_v<-c()
   for (n in 1:n_mod) {
-    n_models[[n]]<-ds_dnn_model_1(out = out1,hnodes = hnodes,epochs = epochs,
+    n_models[[n]]<-ds_dnn_model_1(out = out,hnodes = hnodes,epochs = epochs,
                    batch_size = batch_size,activation = activation,add_dropout = add_dropout,
                    pct_dropout = pct_dropout,name_mod = paste0(name_mod,"_",n),lr=lr,
                    weight_reg = weight_reg,l1=l1,l2=l2,verbose=verbose,earlystopping = earlystopping,
-                   lr_scheduler = lr_scheduler,schedule = schedule,patience = 2)
-    quality_metrics<- n_models[[n]] %>% evaluate(x=out1$test_x,y=out1$test_y)
+                   lr_scheduler = lr_scheduler,schedule = schedule,patience = 2,set.seed = set.seed,seed = seed)
+    quality_metrics<- n_models[[n]] %>% evaluate(x=out$test_x,y=out$test_y)
     quality_metrics<-unname(quality_metrics)
     loss_v<-c(loss_v,quality_metrics[1])
     accuracy_v<-c(accuracy_v,quality_metrics[2])
