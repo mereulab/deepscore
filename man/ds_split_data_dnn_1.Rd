@@ -10,7 +10,9 @@ ds_split_data_dnn_1(
   genes,
   prop = NULL,
   verbose = TRUE,
-  sct_norm = TRUE
+  scaled_data = FALSE,
+  sct_norm = TRUE,
+  train.samples = NULL
 )
 }
 \arguments{
@@ -27,11 +29,15 @@ dataset.}
 \item{verbose}{Logical, controls the displaying of additional messages while
 running the function. Defaults to \code{TRUE}.}
 
+\item{scaled_data}{Set according to the normalizing method of the data. (default=TRUE)}
+
+\item{train.samples}{Set train samples}
+
 \item{sct_nrom}{Set according to the normalizing method of the data. (default=TRUE)}
 }
 \value{
 A list with the following data: train_x= training_data,train_y= categorical cell type variables,
-test_x =test_data,test_y=categorical celltype from the test data, classes=original cell types).
+test_x =test_data,test_y=categorical celltype from the test data, classes=original cell types, train_samples=Set of train samples).
 }
 \description{
 This function split the reference data in training and test set to use it as input for the ds_dnn_model function.

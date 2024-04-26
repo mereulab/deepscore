@@ -10,7 +10,9 @@ ds_prepare_data(
   query.data,
   query.assay,
   markers,
-  markers_data
+  markers_data,
+  ref.slot,
+  query.slot
 )
 }
 \arguments{
@@ -25,6 +27,10 @@ ds_prepare_data(
 \item{markers}{Pre-defined marker genes. If missing, \code{markers_data} is required, otherwise, the next parameters must be empty.}
 
 \item{markers_data}{The output of the R function \code{FindAllMarkers} provided by \code{"Seurat"}. If not provided, the function will automatically calculate it.}
+
+\item{ref.slot}{The data to get from ref.assay}
+
+\item{query.slot}{The data to get from query.assay}
 }
 \value{
 The list containing all input data needed to train the dnn model.

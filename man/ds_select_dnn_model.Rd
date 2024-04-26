@@ -24,6 +24,8 @@ ds_select_dnn_model(
   lr_scheduler = FALSE,
   schedule = NULL,
   patience = 2,
+  set.seed = FALSE,
+  seed = 42,
   ...
 )
 }
