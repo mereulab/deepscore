@@ -10,8 +10,7 @@ ds_split_data_dnn_1(
   genes,
   prop = NULL,
   verbose = TRUE,
-  scaled_data = FALSE,
-  sct_norm = TRUE,
+  scale_the_data = FALSE,
   train.samples = NULL
 )
 }
@@ -29,11 +28,9 @@ dataset.}
 \item{verbose}{Logical, controls the displaying of additional messages while
 running the function. Defaults to \code{TRUE}.}
 
-\item{scaled_data}{Set according to the normalizing method of the data. (default=TRUE)}
+\item{scale_the_data}{Set if data has to be normalized. (default=TRUE)}
 
 \item{train.samples}{Set train samples}
-
-\item{sct_nrom}{Set according to the normalizing method of the data. (default=TRUE)}
 }
 \value{
 A list with the following data: train_x= training_data,train_y= categorical cell type variables,

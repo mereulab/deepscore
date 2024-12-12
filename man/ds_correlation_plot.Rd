@@ -4,7 +4,15 @@
 \alias{ds_correlation_plot}
 \title{This function plots the correlation matrix between two datasets}
 \usage{
-ds_correlation_plot(x.data, x.assay, y.data, y.assay, downsample, features)
+ds_correlation_plot(
+  x.data,
+  x.assay,
+  y.data,
+  y.assay,
+  features,
+  palette = "turbo",
+  method = "circle"
+)
 }
 \arguments{
 \item{x.data}{The Seurat Object that contains the first data}
@@ -15,9 +23,9 @@ ds_correlation_plot(x.data, x.assay, y.data, y.assay, downsample, features)
 
 \item{y.assay}{The assay in the Seurat Object that contains the second data}
 
-\item{downsample}{The number of cells to downsample in each class}
+\item{features}{The features to take into account in the correlation matrix}
 
-\item{markers}{The markers to take into account in the correlation matrix}
+\item{downsample}{The number of cells to downsample in each class}
 }
 \description{
 This function generates a correlation plot

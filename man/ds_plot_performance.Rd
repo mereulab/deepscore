@@ -4,7 +4,16 @@
 \alias{ds_plot_performance}
 \title{Plot performance as radarchart/spider plot}
 \usage{
-ds_plot_performance(data, parameters, legend = TRUE, colors, plwd = 1)
+ds_plot_performance(
+  data,
+  parameters,
+  legend = TRUE,
+  colors,
+  plwd = 1,
+  xlim = c(-1, 3.5),
+  ylim = NULL,
+  title = NULL
+)
 }
 \arguments{
 \item{data}{Output of \code{ds_performance()}}
@@ -16,6 +25,12 @@ ds_plot_performance(data, parameters, legend = TRUE, colors, plwd = 1)
 \item{colors}{Vectors of colors for the plot}
 
 \item{plwd}{Line width of the plot}
+
+\item{xlim}{Customize x limits}
+
+\item{ylim}{Customize y limits}
+
+\item{title}{Title of the plot}
 }
 \value{
 A radarchart plot
