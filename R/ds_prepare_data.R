@@ -54,12 +54,12 @@ ds_prepare_data<-function(ref.data,ref.assay,query.data,query.assay,markers,mark
   query_gg<-rownames(query.data)
   sel_gg<-intersect(query_gg,sel_gg)
 
+  ref.data <- GetAssayData(ref.data, layer = ref.slot, assay = ref.assay)
   ref.data <- ref.data[sel_gg,]
-  ref.data <- GetAssayData(ref.data, slot = ref.slot, assay = ref.assay)
   ref.data<-as.matrix(ref.data)
 
+  query.data <- GetAssayData(query.data, layer = query.slot, assay = query.assay)
   query.data<-query.data[sel_gg,]
-  query.data <- GetAssayData(query.data, slot = query.slot, assay = query.assay)
   query.data<-as.matrix(query.data)
 
   out<-list(ref.data=ref.data,query.data=query.data,ref.cluster=ref.cluster,query.cluster=query.cluster,markers=sel_gg)

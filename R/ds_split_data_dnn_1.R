@@ -8,9 +8,8 @@
 #' @param prop The proportion of cells for the training dataset (default=0.5).
 #' @param verbose Logical, controls the displaying of additional messages while
 #' running the function. Defaults to `TRUE`.
-#' @param scaled_data Set according to the normalizing method of the data. (default=TRUE)
+#' @param scale_the_data Set if data has to be normalized. (default=TRUE)
 #' @param train.samples Set train samples
-#' @param sct_nrom Set according to the normalizing method of the data. (default=TRUE)
 #' @return A list with the following data: train_x= training_data,train_y= categorical cell type variables,
 #' test_x =test_data,test_y=categorical celltype from the test data, classes=original cell types, train_samples=Set of train samples).
 #' @export
@@ -20,7 +19,7 @@
 #  model <- ds_dnn_model(out = out,hnodes = c(100),verbose = T,epochs = 30,batch_size = 32)
 
 ds_split_data_dnn_1 <- function (scale.data, clus, genes, prop = NULL,
-                                 verbose = TRUE, scaled_data=FALSE,sct_norm=TRUE,train.samples=NULL)
+                                 verbose = TRUE, scale_the_data=FALSE,train.samples=NULL)
 {
   classes <- levels(clus)
   levels(clus) <- seq(1:length(levels(clus)))
@@ -60,10 +59,10 @@ ds_split_data_dnn_1 <- function (scale.data, clus, genes, prop = NULL,
   progress <- 4
   Sys.sleep(0.1)
   setTxtProgressBar(pb, progress)
-  out.train <- clus[train.sample]
-  out.test <- clus[test.sample]
+  out.train <- clus[which(names(clus) %in% s)]
+  out.test <- clus[which(!names(clus) %in% s)]
 
-  if(sct_norm){
+  if(scale_the_data){
     var.train <- apply(train.data, 1, function(x) (x - min(x))/(max(x) - min(x)))
     var.test <- apply(test.data, 1, function(x) (x - min(x))/(max(x) - min(x)))
   }
@@ -77,7 +76,7 @@ ds_split_data_dnn_1 <- function (scale.data, clus, genes, prop = NULL,
 
   model.train <- data.frame(out.train, var.train,check.names = F)
   n <- nrow(model.train)
-  model.train <- model.train[sample(x=seq(1:n),size = n),]
+  shuffle_idx<-sample(x=seq(1:n),size = n)
   progress <- 6
   Sys.sleep(0.1)
   setTxtProgressBar(pb, progress)
@@ -86,8 +85,8 @@ ds_split_data_dnn_1 <- function (scale.data, clus, genes, prop = NULL,
   # n <- nrow(model.test)
   # model.test <- model.test[sample(x=seq(1:n),size = n),]
   library(keras)
-  train_x <- as.matrix(model.train[,-1])
-  train_y <- to_categorical(model.train[,1])
+  train_x <- as.matrix(model.train[,-1])[shuffle_idx,]
+  train_y <- to_categorical(model.train[,1])[shuffle_idx,]
   test_x <- var.test
   test_y <- to_categorical(out.test)
 

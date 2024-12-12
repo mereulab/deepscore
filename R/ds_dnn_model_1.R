@@ -89,7 +89,7 @@ ds_dnn_model_1 <- function(out,hnodes, epochs=10,set.seed=TRUE,seed,
       layer_dense(units=hnodes[i], activation=activation, input_shape = c(n_features),
                   kernel_constraint=ds$w_norm, name = paste(name_mod,"dense",i+1,sep="_"),
                   kernel_regularizer=regularizer_l1_l2(l1=l1, l2=l2))
-    if (add_dropout) {
+    if (add_dropout==TRUE) {
       model <- layer_dropout(model, rate=pct_dropout,name = paste(name_mod,"dropout",i+1,sep="_"))
     }
     # N_features as input shape is only for the first layer
@@ -136,7 +136,6 @@ ds_dnn_model_1 <- function(out,hnodes, epochs=10,set.seed=TRUE,seed,
     print("Model evaluation:")
     print(test_performance)
   }
-
 
 
   return(model)
